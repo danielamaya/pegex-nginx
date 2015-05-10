@@ -11,6 +11,18 @@ sub got_comment {
 }
 sub got_blank_line { return; }
 
+sub got_modifier {
+    my $self = shift;
+    #YYY { modifier => \@_ };
+    return @_;
+}
+
+sub got_directive {
+    my $self = shift;
+    #YYY { directive => \@_ };
+    return @_;
+}
+
 sub got_block {
     my $block = pop;
     push @{$block->[1]}, {
@@ -24,9 +36,33 @@ sub got_assignment {
     return { $assignment->[0] => $assignment->[1]->[0] };
 }
 
+<<<<<<< HEAD
 sub got_lua {
     my $lua = pop;
     return { $lua->[0] => $lua->[1] };
+=======
+sub got_lua_word {
+    my $self = shift;
+    return $_[0];
+}
+
+sub got_lua_string {
+    my $self = shift;
+    #say $_[0];
+    return $_[0];
+}
+
+sub got_lua {
+    my ($self, $lua) = @_;
+    $self->flatten($lua) if ref $lua eq 'ARRAY';
+    return { $lua->[0] => $lua->[1] };
+}
+
+sub got_value {
+    my $self = shift;
+    #YYY \@_;
+    return @_;
+>>>>>>> bce3661bf420a6c3252439d03b4be74d0520f1f8
 }
 
 sub final {
