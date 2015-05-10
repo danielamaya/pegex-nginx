@@ -25,7 +25,7 @@ assignment: - key - param+ - line-ending
 # CONSTANTS
 block-start: /- LCURLY - EOL?/
 block-end: /- RCURLY - EOL?/
-comment: /- HASH ANY* EOL / | blank-line
+comment: /- ( HASH ANY* ) EOL / | blank-line
 blank-line: /- EOL/
 line-ending: /- SEMI - EOL?/
 key: / ( [ WORD SLASH ]+ ) /

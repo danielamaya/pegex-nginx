@@ -106,7 +106,7 @@ sub make_tree {   # Generated/Inlined by Pegex::Grammar (0.60)
     'comment' => {
       '.any' => [
         {
-          '.rgx' => qr/\G\s*\#.*\r?\n/
+          '.rgx' => qr/\G\s*(\#.*)\r?\n/
         },
         {
           '.ref' => 'blank_line'

@@ -38,6 +38,7 @@ sub final {
 sub _create_structure {
   my ($data, $out) = @_;
 
+  tie $out, 'Tie::IxHash::Easy';
   for my $hash ( @$data ) {
     for my $key ( keys %$hash ) {
       my $val = $hash->{$key};

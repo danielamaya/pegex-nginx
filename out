@@ -1,1 +1,159 @@
-on
+$VAR1 = {
+          'error_log' => '/var/log/nginx.error_log  info',
+          'events' => {
+                        'directive_modifier' => undef,
+                        'use' => 'kqueue',
+                        'worker_connections' => '2000',
+                        'comment' => '# use [ kqueue | rtsig | epoll | /dev/poll | select | poll ] ;',
+                        'directive_value' => undef
+                      },
+          'comment' => [
+                         '# [ debug | info | notice | warn | error | crit ] ',
+                         '# I owe you the world'
+                       ],
+          'test2' => {
+                       'use' => 'test2',
+                       'directive_modifier' => undef,
+                       'directive_value' => '/ '
+                     },
+          'test1' => {
+                       'use' => 'test1',
+                       'directive_modifier' => undef,
+                       'directive_value' => undef
+                     },
+          'user' => 'www www',
+          'worker_processes' => '2',
+          'http' => {
+                      'gzip_buffers' => '4 8k',
+                      'gzip_types' => 'text/plain',
+                      'client_header_buffer_size' => '1k',
+                      'comment' => [
+                                     '# lingering_time     30;',
+                                     '# lingering_timeout  10;',
+                                     '# reset_timedout_connection  on;'
+                                   ],
+                      'directive_modifier' => undef,
+                      'large_client_header_buffers' => '4 4k',
+                      'log_format' => [
+                                        'main      \'$remote_addr - $remote_user [$time_local]  \'
+    \'"$request" $status $bytes_sent \'
+    \'"$http_referer" "$http_user_agent" \'
+    \'"$gzip_ratio"\'',
+                                        'download  \'$remote_addr - $remote_user [$time_local]  \'
+    \'"$request" $status $bytes_sent \'
+    \'"$http_referer" "$http_user_agent" \'
+    \'"$http_range" "$sent_http_content_range"\''
+                                      ],
+                      'postpone_output' => '1460',
+                      'gzip' => 'on',
+                      'include' => 'conf/mime.types',
+                      'directive_value' => undef,
+                      'client_body_timeout' => '3m',
+                      'tcp_nodelay' => 'on',
+                      'keepalive_timeout' => '75 20',
+                      'send_timeout' => '3m',
+                      'default_type' => 'application/octet-stream',
+                      'client_header_timeout' => '3m',
+                      'send_lowat' => '12000',
+                      'gzip_min_length' => '1100',
+                      'tcp_nopush' => 'on',
+                      'server' => {
+                                    'listen' => 'one.example.com',
+                                    'server_name' => 'one.example.com  www.one.example.com',
+                                    'directive_modifier' => undef,
+                                    'access_log' => '/var/log/nginx.access_log  main',
+                                    'directive_value' => undef,
+                                    'location' => [
+                                                    {
+                                                      'proxy_read_timeout' => '90',
+                                                      'client_body_buffer_size' => '128k',
+                                                      'proxy_buffer_size' => '4k',
+                                                      'charset' => 'koi8-r',
+                                                      'client_body_temp_path' => '/var/nginx/client_body_temp',
+                                                      'proxy_temp_path' => '/var/nginx/proxy_temp',
+                                                      'proxy_send_lowat' => '12000',
+                                                      'proxy_send_timeout' => '90',
+                                                      'proxy_busy_buffers_size' => '64k',
+                                                      'directive_modifier' => undef,
+                                                      'client_max_body_size' => '10m',
+                                                      'comment' => '# proxy_set_header  X-Forwarded-For  $proxy_add_x_forwarded_for;',
+                                                      'proxy_set_header' => [
+                                                                              'Host             $host',
+                                                                              'X-Real-IP        $remote_addr'
+                                                                            ],
+                                                      'directive_value' => '/ ',
+                                                      'proxy_pass' => 'http://127.0.0.1/',
+                                                      'proxy_redirect' => 'off',
+                                                      'proxy_temp_file_write_size' => '64k',
+                                                      'proxy_connect_timeout' => '90',
+                                                      'proxy_buffers' => '4 32k'
+                                                    },
+                                                    {
+                                                      'source_charset' => 'koi8-r',
+                                                      'directive_value' => '/404.html ',
+                                                      'root' => '/spool/www',
+                                                      'charset' => 'on',
+                                                      'directive_modifier' => undef
+                                                    },
+                                                    {
+                                                      'directive_modifier' => undef,
+                                                      'rewrite' => '^/old_stuff/(.*)$  /new_stuff/$1  permanent',
+                                                      'directive_value' => '/old_stuff/ '
+                                                    },
+                                                    {
+                                                      'content_by_lua' => '
+               local num = tonumber(ngx.var.arg_num) or 0
+ 
+               if num > 50 then
+                   ngx.say("num too big")
+                   return
+               end
+ 
+               ngx.say("num is: ", num)
+ 
+               if num > 0 then
+                   res = ngx.location.capture("/recur?num=" .. tostring(num - 1))
+                   ngx.print("status=", res.status, " ")
+                   ngx.print("body=", res.body)
+               else
+                   ngx.say("end")
+               end
+               ',
+                                                      'valid_referers' => 'none  blocked  server_names  *.example.com',
+                                                      'root' => '/spool/www',
+                                                      'comment' => [
+                                                                     '# rewrite_log  on;',
+                                                                     '# rewrite /download/*/mp3/*.any_ext to /download/*/mp3/*.mp3',
+                                                                     '# autoindex    on;'
+                                                                   ],
+                                                      'access_log' => '/var/log/nginx-download.access_log  download',
+                                                      'directive_modifier' => undef,
+                                                      'directive_value' => '/download/ ',
+                                                      'rewrite' => '^/(download/.*)/mp3/(.*)\\..*$ /$1/mp3/$2.mp3 break',
+                                                      'if' => {
+                                                                'return' => '403',
+                                                                'comment' => '#rewrite   ^/   http://www.example.com/;',
+                                                                'directive_modifier' => undef,
+                                                                'directive_value' => '($invalid_referer) '
+                                                              }
+                                                    },
+                                                    {
+                                                      'access_log' => 'off',
+                                                      'directive_modifier' => '~*',
+                                                      'expires' => '30d',
+                                                      'root' => '/spool/www',
+                                                      'directive_value' => '^.+\\.(jpg|jpeg|gif)$ '
+                                                    }
+                                                  ],
+                                    'test' => {
+                                                'directive_modifier' => undef,
+                                                'directive_value' => 'this ',
+                                                'stuff' => 'out'
+                                              },
+                                    'error_page' => '404  /404.html'
+                                  },
+                      'sendfile' => 'on',
+                      'output_buffers' => '1 32k'
+                    },
+          'pid' => '/var/run/nginx.pid'
+        };
