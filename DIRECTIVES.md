@@ -2290,3 +2290,112 @@ match:
   - syntax: match name { ... }
   - context: stream
 
+## Core functionality
+accept_mutex:
+  - syntax: accept_mutex on | off;
+  - context: events
+
+accept_mutex_delay:
+  - syntax: accept_mutex_delay time;
+  - context: events
+
+daemon:
+  - syntax: daemon on | off;
+  - context: main
+
+debug_connection:
+  - syntax: debug_connection address | CIDR | unix:;
+  - context: events
+
+debug_points:
+  - syntax: debug_points abort | stop;
+  - context: main
+
+error_log:
+  - syntax: error_log file | stderr | syslog: server = address [, parameter = value ] | memory: size [ debug | info | notice | warn | error | crit | alert | emerg ];
+  - context: main, http, stream, server, location
+
+env:
+  - syntax: env variable [= value ];
+  - context: main
+
+events:
+  - syntax: events { ... }
+  - context: main
+
+include:
+  - syntax: include file | mask;
+  - context: any
+
+lock_file:
+  - syntax: lock_file file;
+  - context: main
+
+master_process:
+  - syntax: master_process on | off;
+  - context: main
+
+multi_accept:
+  - syntax: multi_accept on | off;
+  - context: events
+
+pcre_jit:
+  - syntax: pcre_jit on | off;
+  - context: main
+
+pid:
+  - syntax: pid file;
+  - context: main
+
+ssl_engine:
+  - syntax: ssl_engine device;
+  - context: main
+
+thread_pool:
+  - syntax: thread_pool name threads = number [ max_queue = number ];
+  - context: main
+
+timer_resolution:
+  - syntax: timer_resolution interval;
+  - context: main
+
+use:
+  - syntax: use method;
+  - context: events
+
+user:
+  - syntax: user user [ group ];
+  - context: main
+
+worker_aio_requests:
+  - syntax: worker_aio_requests number;
+  - context: events
+
+worker_connections:
+  - syntax: worker_connections number;
+  - context: events
+
+worker_cpu_affinity:
+  - syntax: worker_cpu_affinity cpumask...;
+  - context: main
+
+worker_priority:
+  - syntax: worker_priority number;
+  - context: main
+
+worker_processes:
+  - syntax: worker_processes number | auto;
+  - context: main
+
+worker_rlimit_core:
+  - syntax: worker_rlimit_core size;
+  - context: main
+
+worker_rlimit_nofile:
+  - syntax: worker_rlimit_nofile number;
+  - context: main
+
+working_directory:
+  - syntax: working_directory directory;
+  - context: main
+
