@@ -1,0 +1,22 @@
+skip-- \{
+# ~i~file~i~
+textfield-- \A~i~[\w\-]+~i~;\z
+
+# on | off | optional | optional_no_ca;
+boolean-checkbox-- \A(?:(?:on\s?\|\s?off)|[\w\-]+);\z
+
+# true | false | lies
+radio-- \A(?:[\w\-]+\s?\|\s?)+[\w\-]+;\z
+
+# true | false | lies ...
+checkbox-list-- \A(?:[\w\-]+\s?\|\s?)+[\w\-]+\s?\.{3};\z
+
+# ~i~file~i~ ~i~server~i~ ...
+multi-textbox-- \A(?:~i~[\w\-]+~i~\s+)+\.{3};\z
+
+# off | ~i~file~i~
+# ~i~file~i~ | off
+#off-or-textbox-- \A(?:off\|~i~[\w\-]+~i~)|(?:~i~[\w\-]+~i~\|off);\z
+#off-or-multi-textbox-- \A(?:off|~i~[\w\-]+~i~) \| (?:off|~i~[\w\-]+~i~)
+#select-with-textbox-- (?:[\w\-]+\s\|\s)+.*;$/ &/~i~/ !/\[/
+#multiselect-- /\Aon\s?\|\s?off/ /^on\s?\|\s?off/

@@ -1,0 +1,40 @@
+---
+daemon:
+  - key: daemon.value
+  - type: checkbox
+  - value: DuMmYDuMmY
+  - default: checked
+  - tooltip: 'Determines whether nginx should become a daemon. Mainly used during development.'
+worker_processes:
+  - key: worker_proccesses.value
+  - type: input
+  - value: DuMmYDuMmY
+  - default: 1
+  - tooltip: 'Defines the number of worker processes.'
+http:
+  blocks:
+    server:
+      blah:
+        key: http.blocks.server.blah.values
+        label: Include
+        values:
+          - DuMmYDuMmY
+        type: input
+        default: example.com
+        tooltip: 'Defines the server name'
+  directives:
+    include:
+      key: http.directives.include.values
+      label: Include
+      values:
+        - DuMmYDuMmY
+      type: input
+      default: example.com
+      tooltip: 'Defines the server name'
+    server_name:
+      key: http.directives.include.value
+      label: Server Name
+      value: DuMmYDuMmY
+      type: input
+      default: example.com
+      tooltip: 'Defines the server name'

@@ -1,12 +1,24 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-
+use feature 'say';
 use Data::Dumper;
-use YAML::Tiny qw/Load/;
 
-my $file = shift or die "You must specify a file!";
+my ($out,$val,$syntax);
+while (<>) {
+  chomp;
 
-my $yaml = YAML::Tiny->new;
-my $in = $yaml->read($file);
-print Dumper $in->[0];
+  if ( /^\w+/ ) {
+    s/://g;
+    $val = $_;
+  }
+  if ( /syntax:\s?(.*)/ ) {
+    my $syntax = $1;
+    $syntax =~ s/$val //g;
+    push @{ $out->{$syntax} }, $val;
+  }
+}
+print Dumper $out;
+
+
+
