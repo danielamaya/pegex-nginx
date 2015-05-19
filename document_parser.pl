@@ -62,13 +62,15 @@ while (<$ifh>) {
   my $match;
   for ( @regex_arr ) {
     if ( $syntax =~ /$_/ ) {
-      # say $directive.'-'.$regex_hash{$_}.'-'.$syntax;
+      say $syntax;
+      for my $match ( $syntax =~ m/$_/g ) {
+        say $directive.'-'.$regex_hash{$_}.'-'.$match;
+      }
       $match = 1;
-      last;
     }
   }
   if (!$match) {
-    say $syntax;
+    # say $directive.'-'.$syntax;
   }
 
 }

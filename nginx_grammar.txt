@@ -1,22 +1,57 @@
 skip-- \{
 # ~i~file~i~
-textfield-- \A~i~[\w\-]+~i~;\z
+#textfield-- \A~i~[\w\-]+~i~;\z
 
 # on | off | optional | optional_no_ca;
-boolean-checkbox-- \A(?:(?:on\s?\|\s?off)|[\w\-]+);\z
+#boolean-checkbox-- \A(?:(?:on\s?\|\s?off)|[\w\-]+);\z
 
 # true | false | lies
-radio-- \A(?:[\w\-]+\s?\|\s?)+[\w\-]+;\z
+#radio-- \A(?:[\w\-]+\s?\|\s?)+[\w\-]+;\z
 
 # true | false | lies ...
-checkbox-list-- \A(?:[\w\-]+\s?\|\s?)+[\w\-]+\s?\.{3};\z
+#checkbox-list-- \A(?:[\w\-]+\s?\|\s?)+[\w\-]+\s?\.{3};\z
+
+# ~i~name~i~ ~i~size~i~;
+#multi-value-- \A(?:~i~[\w\-]+~i~\s?)+;\z
 
 # ~i~file~i~ ~i~server~i~ ...
-multi-textbox-- \A(?:~i~[\w\-]+~i~\s+)+\.{3};\z
+#multi-textbox-- \A(?:~i~[\w\-]+~i~\s+)+\.{3};\z
 
-# off | ~i~file~i~
-# ~i~file~i~ | off
-#off-or-textbox-- \A(?:off\|~i~[\w\-]+~i~)|(?:~i~[\w\-]+~i~\|off);\z
-#off-or-multi-textbox-- \A(?:off|~i~[\w\-]+~i~) \| (?:off|~i~[\w\-]+~i~)
-#select-with-textbox-- (?:[\w\-]+\s\|\s)+.*;$/ &/~i~/ !/\[/
-#multiselect-- /\Aon\s?\|\s?off/ /^on\s?\|\s?off/
+# [SSLv2] [SSLv3] [TLSv1] [TLSv1.1] [TLSv1.2];
+#optional-checkbox-- \A(?:\[[-\w:\.]+\]\s?)+;\z
+
+# [~i~string~i~] [SSLv3] [TLSv1] [TLSv1.1] [TLSv1.2];
+#optional-textbox-- \A(?:\[.*?\]\s?)+;\z
+
+#  ~i~address~i~ | ~i~CIDR~i~ | unix: | all;
+# ~i~address~i~ | ~i~CIDR~i~ | unix:;
+#jerry1-- \A(?:[~\w\-:]+\s?\|\s?)+[~\w\-:]+;\z
+
+#listen-optional-option-default_server
+#listen-optional-option-spdy
+#listen-optional-option-deferred
+#listen-optional-option-default_server
+#listen-optional-option-spdy
+#listen-optional-option-deferred
+#listen-optional-option-default_server
+#listen-optional-option-spdy
+#listen-optional-option-deferred
+# listen-optional-option-~i~address~i~:~i~port~i~ [ssl]
+# [bind] [ipv6only=on|off] [so_keepalive=on|off|[~i~keepidle~i~]:[~i~keepintvl~i~]:[~i~keepcnt~i~]];
+# ~i~path~i~ [~i~level1~i~ [~i~level2~i~ [~i~level3~i~]]];
+#required-string-- ((?:\A|\s)~i~\$?[\w\-]+~i~(?:\z|\s))
+#optional-string-- ((?:\A|\s)\[(?:[\w\-]+=|\$)?~i~[\w\-]+~i~\](?:\z|\s))
+#label-- (?:[\w\-]+=[\w\-]+)
+#required-option-- ((?:\A|\s)[\w\-]+(?:\z|\s))
+#optional-option-- (?:\A|\s)\[((?:[\w\-]+=)?[\w\-]+)\](?:\z|\s)
+
+#sticky-cookie ~i~name~i~ [expires=~i~time~i~] [domain=~i~domain~i~] [httponly] [secure] [path=~i~path~i~];
+#route ~i~$variable~i~ ...;
+#learn create=~i~$variable~i~ lookup=~i~$variable~i~ zone=~i~name~i~:~i~size~i~ [timeout=~i~time~i~];
+
+
+
+
+textbox-- (~i~.*?~i~)
+option-- \W([\w\-\:\.]+)\W
+label-- \W([\w\-\:\.]+)(?=\=)
